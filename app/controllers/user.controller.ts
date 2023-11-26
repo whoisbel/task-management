@@ -28,7 +28,7 @@ export async function login(req: Request, res: Response){
         if(!JWT_SECRET){
             throw new Error('JWT_SECRET environment variable is required');
         }
-        const token = jwt.sign({ userId: User?.email }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: User?._id, role: User?.role }, JWT_SECRET, { expiresIn: '1h' });
         res.status(200).json({ message: 'User login successfully', token});
     }catch(error:any){
         res.status(403).json({ message: error.message });
