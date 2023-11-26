@@ -13,13 +13,14 @@ export async function verifyToken(req: Request, res: Response, next: NextFunctio
       throw new Error('JWT_SECRET environment variable is required');
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET) as { userId: string, exp: number };
+    const decoded = jwt.verify(token, process.env.JWT_SECRET) as { userId: string, role:string, exp: number };
 
     if (Date.now() >= decoded.exp * 1000) {
       return res.status(401).json({ message: 'Token has expired.' });
     }
 
     req.body.userId = decoded.userId;
+    req.body.role = decoded.role;
     next();
   } catch (error: any) {
     if (error.name === 'TokenExpiredError') {
