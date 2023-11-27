@@ -18,7 +18,7 @@ export async function add_project(req: Request, res: Response) {
         });
 
         await project.save();
-        res.status(200).json({ message: 'Added project successfully' });
+        res.status(200).json({ message: 'Added project successfully', projectId: project._id });
     } catch (error: any) {
         res.status(403).json({ message: error.message });
     }
@@ -39,5 +39,31 @@ export async function view_project(req: Request, res: Response) {
         res.status(200).json({ projects });
     } catch (error: any) {
         res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+
+export async function add_collaborator(req: Request, res: Response) {
+    try {
+        const project = await db.project.findOne({ _id: req.params.projectId });
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        const collaboratorUser = await db.user.findOne({ _id: req.params.collaboratorId });
+        if (!collaboratorUser) {
+            return res.status(404).json({ message: 'Collaborator not found' });
+        }
+
+        const isCollaborator = project.collaborators.some(collaborator => collaborator.user.equals(collaboratorUser._id));
+        if (isCollaborator) {
+            return res.status(400).json({ message: 'User is already a collaborator' });
+        }
+
+        project.collaborators.push({ user: collaboratorUser._id, role: req.body.role || 'collaborator' });
+        await project.save();
+
+        res.status(200).json({ message: 'Added collaborator successfully' });
+    } catch (error: any) {
+        res.status(403).json({ message: error.message });
     }
 }
