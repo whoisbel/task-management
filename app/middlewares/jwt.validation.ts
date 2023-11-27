@@ -2,6 +2,7 @@ import { Response, Request, NextFunction } from 'express';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import { JWT_SECRET } from '../configs/jwt.config';
 
+//Used to validateJWT that users send which will grant them access to other api endpoints.
 export async function validateJWT(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.header('Authorization');
 

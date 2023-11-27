@@ -3,6 +3,8 @@ import { Response, Request } from 'express';
 import bcrypt from 'bcryptjs';
 import { JWT_SECRET } from "../configs/jwt.config";
 import jwt from 'jsonwebtoken'
+
+//Where user creates their account.
 export async function register(req: Request, res: Response) {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -21,7 +23,7 @@ export async function register(req: Request, res: Response) {
     }
 }
 
-
+//Where user will send their login information to get their JWT that users use to access api endpoints
 export async function login(req: Request, res: Response){
     try{
         const User = await db.user.findOne({email: req.body.email})

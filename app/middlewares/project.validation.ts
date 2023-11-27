@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { db } from '../models';
 
+//Middleware to ensure that project details are valid.
 export async function validateProjectInput(req: Request, res: Response, next: NextFunction) {
     try {
         const { project_name, description } = req.body;
