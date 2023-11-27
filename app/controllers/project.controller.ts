@@ -1,6 +1,8 @@
 import { db } from "../models";
 import { Response, Request } from 'express';
 
+
+//Where users can create a project.
 export async function add_project(req: Request, res: Response) {
     try {
         const user = await db.user.findOne({_id: req.body.userId});
@@ -22,6 +24,8 @@ export async function add_project(req: Request, res: Response) {
     }
 }
 
+
+//Where collaborators check for what projects they are in.
 export async function view_project(req: Request, res: Response) {
     try {
         const userId = req.body.userId;

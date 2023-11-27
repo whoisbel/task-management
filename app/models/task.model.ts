@@ -1,6 +1,6 @@
 import { Schema, model, Types } from 'mongoose';
-import { IUser } from './user.model'; // Assuming you have a user model
-import { IProject } from './project.model'; // Assuming you have a project model
+import { IUser } from './user.model'; 
+import { IProject } from './project.model';
 
 interface ITask {
   task_name: string;

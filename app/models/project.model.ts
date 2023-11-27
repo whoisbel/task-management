@@ -1,5 +1,5 @@
 import { Schema, model, Types } from 'mongoose';
-
+//Project model
 interface ICollaborator {
     user: Types.ObjectId;
     role: string;

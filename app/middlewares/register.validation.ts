@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { db } from '../models';
 
+//Middleware to ensure that users email is not already registered.
 export async function validateUserInput(req: Request, res: Response, next: NextFunction) {
     try {
         const { email } = req.body;

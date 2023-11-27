@@ -2,6 +2,8 @@ import { db } from "../models";
 import { Response, Request, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 
+
+//Middleware to ensure login information is valid
 export async function validateLogin(req: Request, res: Response, next: NextFunction){
     try{
         const User = await db.user.findOne({email: req.body.email})
