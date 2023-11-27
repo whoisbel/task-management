@@ -1,6 +1,6 @@
 import express from 'express';
 import { register } from '../controllers/user.controller';
-import { add_project, view_project } from '../controllers/project.controller';
+import { add_collaborator, add_project, view_project } from '../controllers/project.controller';
 import { validateUserInput } from '../middlewares/register.validation';
 import { validateProjectInput } from '../middlewares/project.validation';
 import { login } from '../controllers/user.controller';
@@ -12,4 +12,5 @@ router.post('/register', validateUserInput, register);
 router.post('/project', validateJWT,validateProjectInput, add_project);
 router.get('/project', validateJWT,view_project)
 router.post('/login', validateLogin, login)
+router.post('/project/:projectId/collaborator/:collaboratorId', validateJWT, add_collaborator);
 export default router;
